@@ -1,5 +1,8 @@
 import com.mysql.jdbc.Driver;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -7,6 +10,7 @@ import java.sql.SQLException;
  * on 2017/5/16.
  */
 
+// 用java語言來執行sql語句
 public class JMDC {
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
     private static final String USER = "root";
@@ -17,12 +21,19 @@ public class JMDC {
         new Driver();
 
         // 2 取得一次数据库连接
-//        Connection connection = DriverManager.getConnection();
+
+        Connection connection = DriverManager.getConnection(URL,USER,PASSWORD);
 
         // 3 欲编译语句
-//        PreparedStatement preparedStatement = connection.prepareStatement()
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
                 // 4 执行语句
+
+        preparedStatement.executeUpdate();
+
+         // 释放资源
+        preparedStatement.close();
+        connection.close();
 
     }
 }
