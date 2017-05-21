@@ -49,7 +49,7 @@ SHOW CREATE TABLE db_1702.student;  -- 显示建表语句
 SELECT * -- * 代表所有行，所有列
 FROM db_1702.student;
 
-SELECT count(*)         -- 函数count 计数，统计
+SELECT count(DISTINCT name)          -- 函数count 计数，统计
     FROM db_1702.student;-- 查看表中有多少条记录  DISTINCT  去掉重复的
 
 SHOW DATABASES ;
