@@ -9,7 +9,10 @@ CREATE TABLE db_1702.csdn(
 SELECT *
 FROM db_1702.csdn;
 
-LOAD DATA LOCAL INFILE '' --  加载导入本地的数据
-    INTO TABLE db_1702.csdn  -- 导入到db_1702.csdn这个表
+LOAD DATA LOCAL INFILE 'C:\\Users\\lichengjun\\Desktop\\www.csdn.net.sql'
+    INTO TABLE db_1702.csdn
 FIELDS TERMINATED BY ' # '(username,password,email)
 SET id = NULL ;
+
+SELECT count(*)
+FROM db_1702.csdn;
