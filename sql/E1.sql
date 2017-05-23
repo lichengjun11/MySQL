@@ -92,3 +92,21 @@ SHOW CREATE TABLE db_exam.student_course;
 SHOW CREATE TABLE db_exam.course;
 SHOW CREATE TABLE db_exam.department;
 
+SELECT *
+FROM db_exam.student;
+
+SELECT *
+FROM db_exam.course;
+
+SELECT *
+FROM db_exam.student_course;
+
+SELECT *
+FROM db_exam.department;
+
+
+-- 所有学生获得总学分？
+
+
+-- 课有哪些学生选?
+-- 所有学生获得的总学分？

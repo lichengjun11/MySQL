@@ -5,7 +5,11 @@ CREATE TABLE db_1702.ip(
   max VARCHAR(255) COMMENT '终止 IP 地址',
   geo VARCHAR(255) COMMENT '地理位置'
 );
-SELECT *
+SELECT*
 FROM db_1702.ip;
+
+SELECT *
+FROM db_1702.ip
+WHERE geo LIKE '%济宁%';
 
 TRUNCATE TABLE db_1702.ip;
