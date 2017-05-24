@@ -7,10 +7,10 @@ CREATE TABLE db_1702.iptest (
   loc VARCHAR(255) COMMENT 'IP 地址'
 ) COMMENT 'ip';
 
-SELECT *
+SELECT count(*)
 FROM db_1702.iptest;
 
-LOAD DATA LOCAL INFILE '..\data\\iptest.txt'
-    INTO TABLE db_1702.iptest
+LOAD DATA LOCAL INFILE 'C:\\Users\\lichengjun\\IdeaProjects\\MySQL\\data\\iptest.txt'
+    INTO TABLE db_1702.iptest             -- 必须要写绝对路径，就是从C盘开始...
 FIELDS TERMINATED BY '@@#'(start,stop,loc)
 SET id = NULL ;

@@ -106,6 +106,34 @@ WHERE JOB = (
   FROM scott.emp
   WHERE ENAME = 'scott'    -- 方案 2
 );
+
+-- 11.返回比 30 部门员工平均工资高的员工姓名与工资
+SELECT ENAME,SAL+ifnull(COMM,0)
+FROM scott.emp
+WHERE SAL+ifnull(COMM,0)>(
+SELECT avg(SAL+ifnull(COMM,0))
+FROM scott.emp e INNER JOIN scott.dept d
+WHERE e.DEPTNO = 30
+);
+
+-- 12.返回工资高于30部门所有员工工资水平的员工信息
+SELECT *
+FROM scott.emp
+WHERE SAL+ifnull(COMM,0)>(
+  SELECT max(SAL+ifnull(COMM,0))
+  FROM scott.emp e INNER JOIN scott.dept d
+    ON e.DEPTNO = d.DEPTNO
+  WHERE e.DEPTNO = 30
+);
+
+-- 13.返回部门号、部门名、部门所在位置及其每个部门的员工总数
+SELECT d.DEPTNO,d.DNAME,d.LOC,count(e.ENAME)
+FROM scott.emp e RIGHT JOIN scott.dept d
+ON e.DEPTNO = d.DEPTNO
+GROUP BY d.DEPTNO;          -- ?
+
+
+
 -- 14.返回员工的姓名，所在部门及其工资
 SELECT
   e.ENAME,
@@ -113,6 +141,12 @@ SELECT
   d.DNAME
 FROM scott.emp e INNER JOIN scott.dept d
     ON e.DEPTNO = d.DEPTNO;
+
+# 15.返回雇员表中不在同一部门但是从事相同工作的员工信息
+SELECT *
+FROM scott.emp e INNER JOIN scott.emp e2
+ON e.DEPTNO <> e2.DEPTNO AND e.JOB = e2.JOB ;
+
 
 -- 16.返回员工的详细信息，包括部门名
 SELECT
