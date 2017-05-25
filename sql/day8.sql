@@ -66,11 +66,11 @@ SELECT *
 FROM scott.emp
 WHERE DEPTNO = 30 AND JOB = 'manager';  -- 显示emp表中即在30部门中又同时是经理的人
 
-CREATE OR REPLACE VIEW scott.v_emp_dept
+CREATE OR REPLACE VIEW scott.v_emp_dept -- OR REPLACE 创建或更新，如果有这个视图就是更新，如果没有就是创建
   AS
   SELECT e.ENAME,d.DNAME
   FROM scott.emp e LEFT JOIN scott.dept d
-ON e.DEPTNO = d.DEPTNO;                     -- OR REPLACE 创建或更新，如果有这个视图就是更新，如果没有就是创建
+ON e.DEPTNO = d.DEPTNO;
 
 SELECT *
 FROM scott.v_emp_dept;
@@ -154,4 +154,11 @@ ROLLBACK to a   ;
 
 SELECT *
 FROM scott.emp;
+
+
+
+
+
+
+
 

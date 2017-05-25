@@ -3,10 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>ECharts map Demo</title>
+<script src="echarts.js"></script>
+<script src="china.json"></script>
 </head>
 <body>
-<script src="echarts.js">
+
+<div id="map-wrap" style="height: 600px"></div>
+<script>
+
+    var chart = echarts.init(document.getElementById('map'));
+
+    var option = {
+        title: {
+            text: '全国主要城市 IP 数量分布图',
+            subtext: '数据来自纯真 IP 地址数据库',
+            sublink: 'http://update.cz88.net/soft/setup.zip',
+        },
+        geo: {
+            map: 'china'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+        series: [
+            {
+                name: '城市 IP 地址分布',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: ipData,
+                symbolSize: function (val) {
+                    return val[2] / 200;
+                }
+            }
+        ]
+    };
+    chart.setOption(option);
 </script>
-<script src="china.json"></script>
+
 </body>
 </html>
