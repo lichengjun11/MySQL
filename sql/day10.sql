@@ -144,11 +144,84 @@ SELECT count(*)
 FROM db_1702.v_password
 WHERE substr(password,5,4) BETWEEN '0321' AND '0420'
  ;
-
+/*
+双鱼座	26249
+白羊座	23731
+巨蟹座	25278
+双子座	26483
+天蝎座	43056
+处女座	28104
+水瓶座	29566
+狮子座	26627
+金牛座	23659
+天秤座	47599
+摩羯座 34109
+射手座	44054
+ */
 
 -- 密码是 QQ 号的
+SELECT *
+FROM db_1702.csdn
+WHERE email REGEXP '@qq.com' AND trim(password) = REPLACE(email, '@qq.com', '');
 -- 密码是手机号的
+
 -- 哪个运营商的用户最多
 -- 弱密码用户数据
+# 短密码
+SELECT password
+FROM db_1702.csdn
+WHERE length(password) < 5;
+
+# 纯数字密码
+SELECT *
+FROM db_1702.csdn
+WHERE password REGEXP '^[0-9]+$';
+
+#纯字母密码
+SELECT *
+FROM db_1702.csdn
+WHERE password REGEXP '^[a-zA-Z]+$';
+
+
+-- 强密码用户数据
+# 长密码
+SELECT *
+FROM db_1702.csdn
+WHERE length(password) > 8;
+
+#字母和数字
+SELECT *
+FROM db_1702.csdn
+WHERE password REGEXP '^[a-zA-Z0-9]+$'
+ORDER BY id DESC
+LIMIT 500,1000;
+
+# 含特殊符号
+SELECT *
+FROM db_1702.csdn
+WHERE password REGEXP '^[@#$%^&*(()_+]+$'
+ORDER BY id DESC
+LIMIT 100;
+
+SHOW DATABASES ;
+USE db_bigdata;
+SHOW TABLES ;
+
+SELECT *
+FROM db_bigdata.hotel;
+
+SELECT *
+FROM db_bigdata.hotel
+WHERE name = '张传稳';
 
 SHOW FULL COLUMNS FROM scott.dept;
+
+SELECT *
+FROM db_1702.iptest
+WHERE loc LIKE '%北京%';
+
+SELECT count(*)
+FROM db_1702.iptest;
+
+SELECT *
+FROM db_1702.city;

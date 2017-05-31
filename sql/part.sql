@@ -58,6 +58,7 @@ SELECT *
 FROM scott.emp
 WHERE ENAME NOT LIKE '%r%';
 # 14. 找出员工名字的前3个字符
+
 # 15. 将名字中 A 改为 a
 
 # 16. 将员工的雇佣日期拖后 10 年
@@ -70,10 +71,25 @@ SELECT *
 FROM scott.emp
 ORDER BY HIREDATE DESC;
 # 19. 返回员工的信息并按工作降序、工资升序排列
+SELECT *
+FROM scott.emp
+ORDER BY JOB DESC ,SAL ;
+
 # 20. 返回员工的姓名、雇佣年份和月份，并按月份和雇佣日期排序
+SELECT ENAME,HIREDATE is substr(HIREDATE,0,7)
+FROM scott.emp;
+
 # 21. 计算员工的日薪，每月按 30 天
+SELECT ENAME,(SAL+ifnull(comm,0))/30
+FROM scott.emp;
 # 22. 找出 2 月份雇佣的员工
+SELECT *
+FROM scott.emp
+WHERE HIREDATE LIKE '%-02-%';
 # 23. 至今为止，员工被雇佣的天数
 # 24. 找出姓名中包含 A 的员工信息
+SELECT *
+FROM scott.emp
+WHERE ENAME LIKE '%A%';
 # 25. 计算出员工被雇佣了多少年、多少月、多少日
 

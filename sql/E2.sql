@@ -12,6 +12,13 @@ CREATE TABLE db_test.user(
 
 );
 
+DROP TABLE IF EXISTS db_test.dl;
+CREATE TABLE db_test.dl(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  email VARCHAR(255) COMMENT '邮箱',
+  password VARCHAR(255) COMMENT '密码'
+);
+
 -- 注册
 INSERT INTO db_test.user
     VALUE (NULL ,'1032432292@qq.com','wangfei','123456');
