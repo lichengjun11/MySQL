@@ -13,7 +13,7 @@ CREATE TABLE db_1702.student(     -- 创建db_1702.student 的表
   age   INT UNSIGNED COMMENT '年龄',
   height  DOUBLE  (5,2)  COMMENT '身高',
   price  DECIMAL(6,2)  COMMENT '价格',
-  dod  DATE COMMENT '出生日期',
+  dob  DATE COMMENT '出生日期',
   time  DATETIME  COMMENT '时间'
 ) COMMENT '学生表'; -- 给表添加注释
 

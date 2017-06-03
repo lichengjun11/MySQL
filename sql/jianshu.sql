@@ -70,18 +70,32 @@ CREATE TABLE db_jianshu.collection(
 -- 6.专题-文章  collection_note  多对多关系
 DROP TABLE IF EXISTS db_jianshu.collection_note;
 CREATE TABLE db_jianshu.collection_note(
+  collectionId INT COMMENT 'PK FK',
+  noteId INT COMMENT 'PK FK',
+  PRIMARY KEY (collectionId,noteId)   -- 联合主键
+);
 
-)
 
 
--- 关注
+-- 7.关注 follow
 DROP TABLE IF EXISTS db_jianshu.follow;
 CREATE TABLE db_jianshu.follow(
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
-  count INT COMMENT '关注次数',
-  userId INT COMMENT '用户ID '
-);
+  time DATETIME NOT NULL DEFAULT now() COMMENT '时间',
+  userId INT COMMENT '关注者 ID',
+  followedUserId INT COMMENT 'FK 被关注用户 ID',
+  followedNotebookId INT COMMENT '被关注文集',
+  followedCollectionId INT COMMENT '被关注专题'
 
+)COMMENT '关注表';
+
+-- 8. 收藏 bookmark
+DROP TABLE IF EXISTS db_jianshu.bookmark;
+CREATE TABLE db_jianshu.bookmark(
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID PK',
+  userId INT COMMENT '收藏者 ID',
+  noteId INT COMMENT '被收藏文章 ID'
+) COMMENT '收藏表';
 
 ALTER TABLE db_jianshu.notebook
     ADD CONSTRAINT
