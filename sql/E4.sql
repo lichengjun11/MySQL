@@ -54,6 +54,11 @@ SELECT address,address2
 FROM db_friend.user
 WHERE name = '韩福生';
 
+SELECT name,address2
+FROM db_friend.user u INNER JOIN db_friend.relation r
+ON u.id = r.userId
+WHERE name = '韩福生';
+
 # 计算每个朋友的平均亲密程度，降序排序
 SELECT avg(r.near)
 FROM db_friend.user u INNER JOIN db_friend.relation r

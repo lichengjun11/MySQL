@@ -39,7 +39,7 @@ INSERT INTO db_testone.student VALUE (NULL, '张三', '1994-07-06', '计算机�
 INSERT INTO db_testone.score VALUE (NULL, '计算机', 89, 2);
 INSERT INTO db_testone.score VALUE (NULL, '数学', 90, 1);
 INSERT INTO db_testone.score VALUE (NULL, '英语', 78, 3);
-INSERT INTO db_testone.score VALUE (NULL, '英语', 67, 4);
+INSERT INTO db_testone.score VALUE (NULL, '英语', 67, 2);
 INSERT INTO db_testone.score VALUE (NULL, '数学', 75, 5);
 
 -- 查询student表的所有记录
@@ -86,12 +86,17 @@ FROM db_testone.student
 GROUP BY department;
 
 # 从score表中查询每个科目的最高分
-SELECT max(grade)
+SELECT
+  max(grade),
+  course
 FROM db_testone.score
 GROUP BY course;
 
 #查询李四的考试科目（c_name）和考试成绩（grade）
-SELECT *
+SELECT
+  s.name,
+  s2.course,
+  s2.grade
 FROM db_testone.student s INNER JOIN db_testone.score s2
     ON s.id = s2.studentId
 WHERE name = '李四';
@@ -103,8 +108,18 @@ SELECT
 FROM db_testone.student s INNER JOIN db_testone.score s2
     ON s.id = s2.studentId;
 
+# SELECT *
+# FROM db_testone.student s1 LEFT JOIN db_testone.score s2
+#     ON s1.id = s2.studentId
+# UNION
+# SELECT *
+# FROM db_testone.student s1 RIGHT JOIN db_testone.score s2
+#     ON s1.id = s2.studentId;
+
 # 计算每个学生的总成绩
-SELECT sum(grade)
+SELECT
+  sum(grade),
+  name
 FROM db_testone.student s INNER JOIN db_testone.score s2
     ON s.id = s2.studentId
 GROUP BY name;
@@ -121,10 +136,16 @@ SELECT *
 FROM db_testone.score
 WHERE course = '计算机' AND grade < 95;
 
-# 查询同时参加计算机和英语考试的学生的信息
+# 查询同时参加计算机和英语考试的学生的信息   ??
 SELECT *
-FROM db_testone.score
+FROM db_testone.student s INNER JOIN db_testone.score s2
+  ON s.id = s2.studentId
 WHERE course = '计算机' AND course = '英语';
+-- 2
+SELECT *
+FROM db_testone.student s1 INNER JOIN db_testone.score s2
+ON s1.id = s2.studentId
+WHERE s2.course IN ('英语','计算机');
 
 # 将计算机考试成绩按从高到低进行排序
 SELECT *
@@ -132,12 +153,25 @@ FROM db_testone.score
 WHERE course = '计算机'
 GROUP BY grade DESC;
 
-# 从student表和score表中查询出学生的学号，然后合并查询结果
+# 从student表和score表中查询出学生的学号，然后合并查询结果   ??
 SELECT
   name,
-  s.id
-FROM db_testone.student s INNER JOIN db_testone.score s2
+  s2.studentId
+FROM db_testone.student s LEFT JOIN db_testone.score s2
     ON s.id = s2.studentId;
+
+SELECT
+  studentId,
+  name
+FROM db_testone.student s1 LEFT JOIN db_testone.score s2
+    ON s1.id = s2.studentId
+UNION
+SELECT
+  studentId,
+  name
+FROM db_testone.student s1 RIGHT JOIN db_testone.score s2
+    ON s1.id = s2.studentId;
+
 
 # 查询姓张或者姓王的同学的姓名、院系和考试科目及成绩
 SELECT
@@ -145,9 +179,9 @@ SELECT
   department,
   course,
   grade
-FROM db_testone.student s INNER JOIN db_testone.score s2
+FROM db_testone.student s LEFT JOIN db_testone.score s2
     ON s.id = s2.studentId
-WHERE name LIKE '张%' OR name LIKE '王%';
+WHERE name RLIKE '张*' OR name RLIKE '王*';
 
 # 查询都是湖南的学生的姓名、年龄、院系和考试科目及成绩
 SELECT
